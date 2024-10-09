@@ -5,19 +5,19 @@ import base64
 # Function to generate base64 encoded header text for each protocol
 def generate_header_text(protocol_name):
     titles = {
-        'vmess': "8J+GkyBCYXJyeS1mYXIgfCB2bWVzc/Cfpbc=",
-        'vless': "8J+GkyBCYXJyeS1mYXIgfCB2bGVzc/Cfpbc=",
-        'trojan': "8J+GkyBCYXJyeS1mYXIgfCBUcm9qYW7wn6W3",
-        'ss': "8J+GkyBCYXJyeS1mYXIgfCBTaGFkb3dTb2Nrc/Cfpbc=",
-        'ssr': "8J+GkyBCYXJyeS1mYXIgfCBTaGFkb3dTb2Nrc1Ig8J+ltw==",
-        'tuic': "8J+GkyBCYXJyeS1mYXIgfCBUdWljIPCfpbc=",
-        'hy2': "8J+GkyBCYXJyeS1mYXIgfCBIeXN0ZXJpYTLwn6W3"
+        'vmess': "8J+GkyA0MDQgfCB2bWVzc/Cfpbc=",
+        'vless': "8J+GkyA0MDQgfCB2bGVzc/Cfpbc=",
+        'trojan': "8J+GkyA0MDQgfCBUcm9qYW7wn6W3",
+        'ss': "8J+GkyA0MDQgfCBTaGFkb3dTb2Nrc/Cfpbc=",
+        'ssr': "8J+GkyA0MDQgfCBTaGFkb3dTb2Nrc1Ig8J+ltw==",
+        'tuic': "8J+GkyA0MDQgfCBUdWljIPCfpbc=",
+        'hy2': "8J+GkyA0MDQgfCBIeXN0ZXJpYTLwn6W3"
     }
     base_text = """#profile-title: base64:{base64_title}
 #profile-update-interval: 1
 #subscription-userinfo: upload=0; download=0; total=10737418240000000; expire=2546249531
-#support-url: https://github.com/barry-far/V2ray-Configs
-#profile-web-page-url: https://github.com/barry-far/V2ray-Configs
+#support-url: https://github.com/nyeinkokoaung404/V2ray-Configs
+#profile-web-page-url: https://github.com/nyeinkokoaung404/V2ray-Configs
 
 """
     return base_text.format(base64_title=titles.get(protocol_name, ""))
@@ -41,7 +41,7 @@ os.makedirs(splitted_path, exist_ok=True)
 protocol_data = {protocol: generate_header_text(protocol) for protocol in protocols}
 
 # Fetching the configuration data
-response = requests.get("https://raw.githubusercontent.com/barry-far/V2ray-Configs/main/All_Configs_Sub.txt").text
+response = requests.get("https://raw.githubusercontent.com/nyeinkokoaung404/V2ray-Configs/main/All_Configs_Sub.txt").text
 
 # Processing and grouping configurations
 for config in response.splitlines():
