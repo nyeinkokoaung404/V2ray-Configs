@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>404 VPN: Your Gateway to Secure and Free Internet Access</title>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+            <style>
+                body {
+                    padding: 20px;
+                    background-color: #f8f9fa;
+                    color: #495057;
+                    transition: background-color 0.3s, color 0.3s;
+                }
+                body.dark-theme {
+                    background-color: #343a40;
+                    color: #f8f9fa;
+                }
+                .header {
+                    background-color: #007bff;
+                    color: white;
+                    padding: 20px;
+                    border-radius: 8px;
+                    margin-bottom: 20px;
+                }
+                .feature {
+                    background-color: white;
+                    padding: 20px;
+                    border-radius: 8px;
+                    margin-bottom: 20px;
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                    transition: background-color 0.3s;
+                }
+                .feature.dark-theme {
+                    background-color: #495057;
+                    color: #f8f9fa;
+                }
+                .feature h4 {
+                    color: #007bff;
+                }
+                .footer {
+                    text-align: center;
+                    padding: 20px;
+                    background-color: #343a40;
+                    color: white;
+                    border-radius: 8px;
+                    transition: background-color 0.3s;
+                }
+                .footer.dark-theme {
+                    background-color: #212529;
+                }
+                .footer a {
+                    color: white;
+                    margin: 0 10px;
+                    text-decoration: none;
+                }
+                .footer a:hover {
+                    color: #007bff;
+                }
+                .topbar {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 10px 20px;
+                    background-color: #007bff;
+                    color: white;
+                    border-radius: 8px;
+                    margin-bottom: 20px;
+                    transition: background-color 0.3s;
+                }
+                .topbar.dark-theme {
+                    background-color: #0056b3;
+                }
+                .topbar h1 {
+                    margin: 0;
+                    font-size: 1.5rem;
+                }
+                .topbar p {
+                    margin: 0;
+                    font-size: 1rem;
+                }
+                .theme-toggle {
+                    cursor: pointer;
+                    font-size: 1.5rem;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="topbar">
+                    <div>
+                        <h1>4-0-4 VPN</h1>
+                        <p>Your Gateway to Secure and Free Internet Access</p>
+                    </div>
+                    <div class="theme-toggle" id="theme-toggle">
+                        <i class="bi bi-moon-fill"></i>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 feature">
+                        <h3>About 4-0-4 VPN</h3>
+                        <p><strong>4-0-4 VPN</strong> is an open-source project designed to provide secure, unrestricted internet access. It uses Telegram for collecting and distributing VPN configurations, offering a community-driven approach to online privacy.</p>
+                    </div>
+                    <div class="col-12 feature">
+                        <h4>How It Works</h4>
+                        <ol>
+                            <li><strong>Telegram Integration</strong>: A Telegram bot collects VPN configuration files.</li>
+                            <li><strong>Subscription Link</strong>: Provides a link for users to subscribe to the VPN service.</li>
+                            <li><strong>Open Source</strong>: Encourages collaboration and transparency.</li>
+                            <li><strong>PHP and Python Backend</strong>: The backend is developed using PHP and Python (Thanks to @NekoHanaku).</li>
+                        </ol>
+                    </div>
+                    <div class="col-12 feature">
+                        <h4>Benefits</h4>
+                        <ul>
+                            <li><strong>Free Access</strong>: Completely free to use.</li>
+                            <li><strong>Community-Driven</strong>: Wide range of VPN configurations from community contributions.</li>
+                            <li><strong>Enhanced Security</strong>: Open-source nature allows for constant scrutiny and improvement.</li>
+                            <li><strong>Easy to Use</strong>: Simple subscription link for easy setup.</li>
+                        </ul>
+                    </div>
+                    <div class="col-12 feature">
+                        <h4>Subscription Links</h4>
+                        <p>Get started with 4-0-4 VPN using the subscription links below. These links provide access to the latest VPN configurations.</p>
+                        <!-- Placeholder for dynamic content -->
+                        <div class="dropdown-menu-container">
+  <select class="form-select" id="first-dropdown-66f4b1c54cfca">
+    <option value="">Select a Protocol</option>
+    <option value="vmess">vmess</option>
+    <option value="trojan">trojan</option>
+    <option value="ss">ss</option>
+    <option value="mix">mix</option>
+    <option value="vless">vless</option>
+  </select>
+  <select class="form-select mt-3" id="second-dropdown-66f4b1c54cfca" disabled>
+    <option value="">Select a configuration type</option>
+  </select>
+  <div class="input-group mt-3">
+    <input type="text" class="form-control" id="related-item-66f4b1c54cfca" readonly>
+    <button class="btn btn-outline-secondary" type="button" id="copy-button-66f4b1c54cfca">Copy</button>
+  </div>
+</div>
+<script>
+  (function() {
+    var columnData = [["vmess","https:\/\/raw.githubusercontent.com\/itsyebekhe\/HiN-VPN\/main\/subscription\/normal\/vmess","https:\/\/raw.githubusercontent.com\/itsyebekhe\/HiN-VPN\/main\/subscription\/base64\/vmess","https:\/\/raw.githubusercontent.com\/itsyebekhe\/HiN-VPN\/main\/subscription\/hiddify\/vmess"],["trojan","https:\/\/raw.githubusercontent.com\/itsyebekhe\/HiN-VPN\/main\/subscription\/normal\/trojan","https:\/\/raw.githubusercontent.com\/itsyebekhe\/HiN-VPN\/main\/subscription\/base64\/trojan","https:\/\/raw.githubusercontent.com\/itsyebekhe\/HiN-VPN\/main\/subscription\/hiddify\/trojan"],["ss","https:\/\/raw.githubusercontent.com\/itsyebekhe\/HiN-VPN\/main\/subscription\/normal\/ss","https:\/\/raw.githubusercontent.com\/itsyebekhe\/HiN-VPN\/main\/subscription\/base64\/ss","https:\/\/raw.githubusercontent.com\/itsyebekhe\/HiN-VPN\/main\/subscription\/hiddify\/ss"],["mix","https:\/\/raw.githubusercontent.com\/itsyebekhe\/HiN-VPN\/main\/subscription\/normal\/mix","https:\/\/raw.githubusercontent.com\/itsyebekhe\/HiN-VPN\/main\/subscription\/base64\/mix","https:\/\/raw.githubusercontent.com\/itsyebekhe\/HiN-VPN\/main\/subscription\/hiddify\/mix"],["vless","https:\/\/raw.githubusercontent.com\/itsyebekhe\/HiN-VPN\/main\/subscription\/normal\/vless","https:\/\/raw.githubusercontent.com\/itsyebekhe\/HiN-VPN\/main\/subscription\/base64\/vless","https:\/\/raw.githubusercontent.com\/itsyebekhe\/HiN-VPN\/main\/subscription\/hiddify\/vless"]];
+    var columnTitles = ["Normal","Base64","Hiddify"];
+    var firstDropdown = document.getElementById("first-dropdown-66f4b1c54cfca");
+    var secondDropdown = document.getElementById("second-dropdown-66f4b1c54cfca");
+    var relatedItem = document.getElementById("related-item-66f4b1c54cfca");
+    var copyButton = document.getElementById("copy-button-66f4b1c54cfca");
+    firstDropdown.addEventListener("change", function() {
+      var selectedValue = this.value;
+      secondDropdown.innerHTML = '<option value="">Select a title</option>';
+      secondDropdown.disabled = true;
+      if (selectedValue) {
+        secondDropdown.disabled = false;
+        var selectedRow = null;
+        for (var i = 0; i < columnData.length; i++) {
+          if (columnData[i][0] === selectedValue) {
+            selectedRow = columnData[i];
+            break;
+          }
+        }
+        if (selectedRow) {
+          for (var j = 1; j < selectedRow.length; j++) {
+            var option = document.createElement("option");
+            option.value = selectedRow[j];
+            option.text = columnTitles[j - 1];
+            secondDropdown.appendChild(option);
+          }
+        }
+      }
+    });
+    secondDropdown.addEventListener("change", function() {
+      var selectedValue = this.value;
+      relatedItem.value = selectedValue;
+    });
+    copyButton.addEventListener("click", function() {
+      relatedItem.select();
+      document.execCommand("copy");
+      alert("Copied to clipboard: " + relatedItem.value);
+    });
+  })();
+</script>
+
+                        <p>This Drop-Downs provides a quick reference for the different subscription links available through 4-0-4 VPN, allowing users to easily select the one that best suits their needs.</p>
+                    </div>
+                    <div class="col-12 footer">
+                        <h4>The Last Word</h4>
+                        <p>4-0-4 VPN is more than just a VPN service; it's a movement towards a more secure and open internet. By leveraging the power of community and open-source technology, 4-0-4 VPN is paving the way for a future where online privacy is a fundamental right for all.</p>
+                        <div>
+                            <a href="https://github.com/nyeinkokoaung/free-vpn" target="_blank"><i class="bi bi-github"></i></a>
+                            <a href="https://x.com/nkka404" target="_blank"><i class="bi bi-twitter"></i></a>
+                            <a href="https://t.me/nkka404" target="_blank"><i class="bi bi-telegram"></i></a>
+                        </div>
+                        <p>&copy; 2024 4-0-4 VPN. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+            <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const themeToggle = document.getElementById('theme-toggle');
+                const body = document.body;
+        
+                // Load theme preference from local storage
+                const currentTheme = localStorage.getItem('theme');
+                if (currentTheme) {
+                    body.classList.add(currentTheme);
+                    themeToggle.innerHTML = currentTheme === 'dark-theme' ? '<i class="bi bi-sun-fill"></i>' : '<i class="bi bi-moon-fill"></i>';
+                    document.querySelectorAll('.feature, .footer, .topbar').forEach(el => el.classList.add(currentTheme));
+                }
+        
+                themeToggle.addEventListener('click', () => {
+                    if (body.classList.contains('dark-theme')) {
+                        body.classList.remove('dark-theme');
+                        body.classList.add('light-theme');
+                        themeToggle.innerHTML = '<i class="bi bi-moon-fill"></i>';
+                        localStorage.setItem('theme', 'light-theme');
+                        document.querySelectorAll('.feature, .footer, .topbar').forEach(el => {
+                            el.classList.remove('dark-theme');
+                            el.classList.add('light-theme');
+                        });
+                    } else {
+                        body.classList.remove('light-theme');
+                        body.classList.add('dark-theme');
+                        themeToggle.innerHTML = '<i class="bi bi-sun-fill"></i>';
+                        localStorage.setItem('theme', 'dark-theme');
+                        document.querySelectorAll('.feature, .footer, .topbar').forEach(el => {
+                            el.classList.remove('light-theme');
+                            el.classList.add('dark-theme');
+                        });
+                    }
+                });
+        
+                document.querySelectorAll(".btn-copy").forEach(function(button) {
+                    button.addEventListener("click", function() {
+                        navigator.clipboard.writeText(button.getAttribute("data-text")).then(function() {
+                            alert("Text copied to clipboard!");
+                        }, function(err) {
+                            console.error("Could not copy text: ", err);
+                        });
+                    });
+                });
+            });
+            </script>
+        </body>
+        </html>
