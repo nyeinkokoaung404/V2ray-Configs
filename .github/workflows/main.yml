@@ -1,0 +1,55 @@
+name: Update Configs
+permissions: write-all
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    # Run every 10 minutes
+    - cron: "*/10 * * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.11'
+        
+    - name: Stash any local changes
+      run: git stash
+      
+    - name: Install dependencies
+      run: cd Files && pip install -r requirements.txt
+
+    - name: Run Config script and save output to file
+      run: cd Files && python app.py
+      
+    - name: Run Warp script and save output to file
+      run: cd Files && python warp.py
+      
+    - name: Run Splitter script and save output to file
+      run: cd Files && python sort.py
+
+    - name: Check changes
+      run: |
+        echo "Checking the changes made..."
+        git status
+        ls -l Files/
+        
+    - name: Commit and push files
+      uses: EndBug/add-and-commit@v7
+      with:
+        author_name: "4-0-4[bot]"
+        author_email: "55767055+404-bots@users.noreply.github.com"
+        message: "Updated 9 minutes Ago ⚡️"
+        add: "."
+        push: "https://github.com/nyeinkokoaung404/V2ray-Configs.git"
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
