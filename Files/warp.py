@@ -4,11 +4,11 @@ import requests
 import binascii
 import os
 
-warp_fixed_text = """#profile-title: base64:8J+GkyBCYXJyeS1mYXIgfCBXYXJwIPCfjJA=
+warp_fixed_text = """#profile-title: base64:8J+GkyA0MDQgfCBXYXJwIPCfjJA=
 #profile-update-interval: 1
 #subscription-userinfo: upload=29; download=12; total=10737418240000000; expire=2546249531
-#support-url: https://github.com/barry-far/V2ray-Configs
-#profile-web-page-url: https://github.com/barry-far/V2ray-Configs
+#support-url: https://github.com/nyeinkokoaung404/V2ray-Configs
+#profile-web-page-url: https://github.com/nyeinkokoaung404/V2ray-Configs
 
 """
 
