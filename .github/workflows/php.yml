@@ -1,0 +1,45 @@
+name: "Collect WARP+ KEYS"
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+  schedule:
+    - cron: '0 * * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -e {0}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          NODE_VERSION: '20'
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+
+      - name: Execute PHP script
+        run: php crawler.php
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "nyeinkokoaung1997@gmail.com"
+          git config --global user.name "4-0-4"
+
+      - name: Commit changes
+        run: |
+          git add -A
+          git diff --cached --quiet || git commit -m "💡 Automatic update - $(TZ='Asia/Yangon' date '+%Y-%m-%d %H:%M')"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
