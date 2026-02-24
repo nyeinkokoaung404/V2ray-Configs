@@ -24,44 +24,39 @@ https://raw.githubusercontent.com/nyeinkokoaung404/V2ray-Configs/main/Sub1.txt
 https://raw.githubusercontent.com/nyeinkokoaung404/V2ray-Configs/main/Sub2.txt
 ```
 
-- Subscription 3: 
+- RAW CONFIGURATIONS: 
 ```
-https://raw.githubusercontent.com/nyeinkokoaung404/V2ray-Configs/main/Sub3.txt
-```
-
-- Subscription 4: 
-```
-https://raw.githubusercontent.com/nyeinkokoaung404/V2ray-Configs/main/Sub4.txt
+https://raw.githubusercontent.com/nyeinkokoaung404/V2ray-Configs/main/configs/proxy_configs.txt
 ```
 
-- Subscription 5: 
+- XRAY TESTED: 
 ```
-https://raw.githubusercontent.com/nyeinkokoaung404/V2ray-Configs/main/Sub5.txt
-```
-
-- Subscription 6: 
-```
-https://raw.githubusercontent.com/nyeinkokoaung404/V2ray-Configs/main/Sub6.txt
+https://raw.githubusercontent.com/nyeinkokoaung404/V2ray-Configs/main/configs/proxy_configs_tested.txt
 ```
 
-- Subscription 7: 
+- XRAY LOAD BALANCED: 
 ```
-https://raw.githubusercontent.com/nyeinkokoaung404/V2ray-Configs/main/Sub7.txt
-```
-
-- Subscription 8: 
-```
-https://raw.githubusercontent.com/nyeinkokoaung404/V2ray-Configs/main/Sub8.txt
+https://raw.githubusercontent.com/nyeinkokoaung404/V2ray-Configs/main/configs/xray_loadbalanced_config.json
 ```
 
-- Subscription 9: 
+- XRAY SECURE LOAD BALANCED: 
 ```
-https://raw.githubusercontent.com/nyeinkokoaung404/V2ray-Configs/main/Sub9.txt
+https://raw.githubusercontent.com/nyeinkokoaung404/V2ray-Configs/main/configs/xray_secure_loadbalanced_config.json
 ```
 
-- Subscription 10: 
+- SING-BOX ALL: 
 ```
-https://raw.githubusercontent.com/nyeinkokoaung404/V2ray-Configs/main/Sub10.txt
+https://raw.githubusercontent.com/nyeinkokoaung404/V2ray-Configs/main/configs/singbox_configs_all.json
+```
+
+- SING-BOX TESTED: 
+```
+https://raw.githubusercontent.com/nyeinkokoaung404/V2ray-Configs/main/configs/singbox_configs_tested.json
+```
+
+- SING-BOX SECURE: 
+```
+https://raw.githubusercontent.com/nyeinkokoaung404/V2ray-Configs/main/configs/singbox_configs_secure.json
 ```
 
 🔒 To ensure the best possible performance and security, we recommend subscribing to our latest configurations using the subscription link feature. Simply copy the subscription link from the configs.txt file and paste it into your V2ray client to receive automatic updates every 10 minutes.
@@ -158,3 +153,4 @@ You can also use these apps : [ShadowRocket](https://apps.apple.com/ca/app/shado
 [@ALIILAPRO](https://github.com/ALIILAPRO)
 [@yebekhe](https://github.com/yebekhe)
 [@soroushmirzaei](https://github.com/soroushmirzaei)
+
