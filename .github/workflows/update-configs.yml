@@ -1,0 +1,300 @@
+name: Update Proxy Configs
+
+on:
+  schedule:
+    - cron: '30 20 * * *'  # 00:00 Tehran
+    - cron: '30 23 * * *'  # 03:00 Tehran
+    - cron: '30 2 * * *'   # 06:00 Tehran
+    - cron: '30 5 * * *'   # 09:00 Tehran
+    - cron: '30 8 * * *'   # 12:00 Tehran
+    - cron: '30 11 * * *'  # 15:00 Tehran
+    - cron: '30 14 * * *'  # 18:00 Tehran
+    - cron: '30 17 * * *'  # 21:00 Tehran
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-configs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Install Xray with retry
+        run: |
+          MAX_RETRIES=3
+          RETRY_COUNT=0
+          
+          install_xray() {
+            echo "Attempting to install Xray (Attempt $((RETRY_COUNT + 1))/$MAX_RETRIES)..."
+            
+            LATEST_URL=$(curl -sL "https://api.github.com/repos/XTLS/Xray-core/releases/latest" | jq -r '.assets[] | select(.name=="Xray-linux-64.zip") | .browser_download_url')
+            
+            if [ -z "$LATEST_URL" ] || [ "$LATEST_URL" == "null" ]; then
+              echo "Failed to fetch Xray download URL from GitHub API"
+              return 1
+            fi
+            
+            echo "Download URL: $LATEST_URL"
+            
+            if ! wget -q --timeout=30 --tries=3 -O xray.zip "$LATEST_URL"; then
+              echo "Failed to download Xray"
+              return 1
+            fi
+            
+            if [ ! -f xray.zip ] || [ ! -s xray.zip ]; then
+              echo "Downloaded file is missing or empty"
+              return 1
+            fi
+            
+            if ! unzip -o xray.zip xray geoip.dat geosite.dat; then
+              echo "Failed to extract Xray"
+              rm -f xray.zip
+              return 1
+            fi
+            
+            sudo mv xray /usr/local/bin/
+            sudo chmod +x /usr/local/bin/xray
+            
+            if ! xray version; then
+              echo "Xray installation verification failed"
+              return 1
+            fi
+            
+            rm -f xray.zip geoip.dat geosite.dat LICENSE
+            echo "Xray installed successfully"
+            return 0
+          }
+          
+          while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+            if install_xray; then
+              echo "✓ Xray installation successful"
+              exit 0
+            else
+              RETRY_COUNT=$((RETRY_COUNT + 1))
+              if [ $RETRY_COUNT -lt $MAX_RETRIES ]; then
+                echo "Retrying in 30 seconds..."
+                sleep 30
+              fi
+            fi
+          done
+          
+          echo "✗ Failed to install Xray after $MAX_RETRIES attempts"
+          echo "Trying fallback method with hardcoded version..."
+          
+          FALLBACK_VERSION="v25.1.1"
+          FALLBACK_URL="https://github.com/XTLS/Xray-core/releases/download/${FALLBACK_VERSION}/Xray-linux-64.zip"
+          
+          echo "Using fallback URL: $FALLBACK_URL"
+          
+          if wget -q --timeout=30 --tries=3 -O xray.zip "$FALLBACK_URL" && \
+             unzip -o xray.zip xray geoip.dat geosite.dat && \
+             sudo mv xray /usr/local/bin/ && \
+             sudo chmod +x /usr/local/bin/xray && \
+             xray version; then
+            rm -f xray.zip geoip.dat geosite.dat LICENSE
+            echo "✓ Xray installed successfully using fallback method"
+            exit 0
+          else
+            echo "✗ Fallback installation also failed"
+            exit 1
+          fi
+      
+      - name: Install sing-box with retry
+        run: |
+          MAX_RETRIES=3
+          RETRY_COUNT=0
+          
+          install_singbox() {
+            echo "Attempting to install Sing-box (Attempt $((RETRY_COUNT + 1))/$MAX_RETRIES)..."
+            
+            LATEST_URL=$(curl -sL "https://api.github.com/repos/SagerNet/sing-box/releases/latest" | jq -r '.assets[] | select(.name | endswith("_linux_amd64.deb")) | .browser_download_url')
+            
+            if [ -z "$LATEST_URL" ] || [ "$LATEST_URL" == "null" ]; then
+              echo "Failed to fetch Sing-box download URL from GitHub API"
+              return 1
+            fi
+            
+            echo "Download URL: $LATEST_URL"
+            
+            if ! wget -q --timeout=30 --tries=3 -O sing-box.deb "$LATEST_URL"; then
+              echo "Failed to download Sing-box"
+              return 1
+            fi
+            
+            if [ ! -f sing-box.deb ] || [ ! -s sing-box.deb ]; then
+              echo "Downloaded file is missing or empty"
+              return 1
+            fi
+            
+            if ! sudo dpkg -i sing-box.deb; then
+              echo "Failed to install Sing-box package"
+              sudo apt-get install -f -y
+              return 1
+            fi
+            
+            sudo apt-get install -f -y
+            rm -f sing-box.deb
+            echo "Sing-box installed successfully"
+            return 0
+          }
+          
+          while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+            if install_singbox; then
+              echo "✓ Sing-box installation successful"
+              exit 0
+            else
+              RETRY_COUNT=$((RETRY_COUNT + 1))
+              if [ $RETRY_COUNT -lt $MAX_RETRIES ]; then
+                echo "Retrying in 30 seconds..."
+                sleep 30
+              fi
+            fi
+          done
+          
+          echo "✗ Failed to install Sing-box after $MAX_RETRIES attempts"
+          echo "Trying fallback method with hardcoded version..."
+          
+          FALLBACK_VERSION="1.12.0"
+          FALLBACK_URL="https://github.com/SagerNet/sing-box/releases/download/v${FALLBACK_VERSION}/sing-box_${FALLBACK_VERSION}_linux_amd64.deb"
+          
+          echo "Using fallback URL: $FALLBACK_URL"
+          
+          if wget -q --timeout=30 --tries=3 -O sing-box.deb "$FALLBACK_URL" && \
+             sudo dpkg -i sing-box.deb; then
+            sudo apt-get install -f -y
+            rm -f sing-box.deb
+            echo "✓ Sing-box installed successfully using fallback method"
+            exit 0
+          else
+            echo "✗ Fallback installation also failed"
+            exit 1
+          fi
+      
+      - name: Create directories
+        run: |
+          mkdir -p assets
+          mkdir -p configs
+      
+      - name: Run config fetcher
+        run: python src/fetch_configs.py
+        continue-on-error: true
+      
+      - name: Enrich configs with location data
+        run: python src/enrich_configs.py configs/proxy_configs.txt configs/location_cache.json
+        continue-on-error: true
+      
+      - name: Rename configs
+        run: python src/rename_configs.py configs/location_cache.json configs/proxy_configs.txt configs/proxy_configs.txt
+        continue-on-error: true
+      
+      - name: Test configs with Xray
+        run: python src/xray_config_tester.py configs/proxy_configs.txt configs/proxy_configs_tested.txt
+        continue-on-error: true
+      
+      - name: Update input file with tested configs
+        run: cp configs/proxy_configs_tested.txt configs/proxy_configs.txt
+        continue-on-error: true
+      
+      - name: Convert configs to sing-box format
+        run: python src/config_to_singbox.py
+      
+      - name: Backup original sing-box config
+        run: |
+          if [ -f configs/singbox_configs.json ]; then
+            cp configs/singbox_configs.json configs/singbox_configs_all.json
+            echo "Original sing-box config backed up to singbox_configs_all.json"
+          fi
+      
+      - name: Test sing-box configs
+        run: python src/config_tester.py configs/singbox_configs_all.json configs/singbox_configs_tested.json
+        continue-on-error: true
+      
+      - name: Filter insecure configs and generate secure outputs
+        run: python src/security_filter.py
+        continue-on-error: true
+      
+      - name: Convert tested configs to Xray format
+        run: python src/xray_balancer.py
+        continue-on-error: true
+      
+      - name: Generate charts and reports
+        run: python src/generate_charts.py
+      
+      - name: Update README timestamps and stats
+        run: |
+          timestamp=$(date +%s)
+          
+          sed -i "s/channel_stats_chart\.svg?v=[0-9]*/channel_stats_chart.svg?v=$timestamp/" README.md
+          sed -i "s/performance_report\.html?v=[0-9]*/performance_report.html?v=$timestamp/" README.md
+          
+          sed -i "s/channel_stats_chart\.svg?v=[0-9]*/channel_stats_chart.svg?v=$timestamp/" README_FA.md
+          sed -i "s/performance_report\.html?v=[0-9]*/performance_report.html?v=$timestamp/" README_FA.md
+          
+          sed -i "s/channel_stats_chart\.svg?v=[0-9]*/channel_stats_chart.svg?v=$timestamp/" README_CN.md
+          sed -i "s/performance_report\.html?v=[0-9]*/performance_report.html?v=$timestamp/" README_CN.md
+          
+          sed -i "s/channel_stats_chart\.svg?v=[0-9]*/channel_stats_chart.svg?v=$timestamp/" README_RU.md
+          sed -i "s/performance_report\.html?v=[0-9]*/performance_report.html?v=$timestamp/" README_RU.md
+      
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add configs/proxy_configs.txt
+          git add configs/proxy_configs_tested.txt
+          git add configs/location_cache.json
+          git add configs/singbox_configs_all.json
+          git add configs/singbox_configs_tested.json
+          git add configs/singbox_configs_secure.json
+          git add configs/xray_loadbalanced_config.json
+          git add configs/xray_secure_loadbalanced_config.json
+          git add configs/channel_stats.json
+          git add assets/
+          git add README.md
+          git add README_FA.md
+          git add README_CN.md
+          git add README_RU.md
+          
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          
+          git commit -m "Update proxy configs, stats and reports"
+          
+          max_retries=5
+          retry_count=0
+          
+          while [ $retry_count -lt $max_retries ]; do
+            if git push; then
+              echo "Successfully pushed changes"
+              exit 0
+            else
+              retry_count=$((retry_count + 1))
+              if [ $retry_count -lt $max_retries ]; then
+                echo "Push failed, retrying in 30 seconds... (Attempt $retry_count/$max_retries)"
+                sleep 30
+                git pull --rebase origin main || true
+              fi
+            fi
+          done
+          
+          echo "Failed to push after $max_retries attempts"
+          exit 1
