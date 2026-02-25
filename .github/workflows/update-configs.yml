@@ -244,14 +244,14 @@ jobs:
           sed -i "s/channel_stats_chart\.svg?v=[0-9]*/channel_stats_chart.svg?v=$timestamp/" README.md
           sed -i "s/performance_report\.html?v=[0-9]*/performance_report.html?v=$timestamp/" README.md
           
-          sed -i "s/channel_stats_chart\.svg?v=[0-9]*/channel_stats_chart.svg?v=$timestamp/" README_FA.md
-          sed -i "s/performance_report\.html?v=[0-9]*/performance_report.html?v=$timestamp/" README_FA.md
+      #    sed -i "s/channel_stats_chart\.svg?v=[0-9]*/channel_stats_chart.svg?v=$timestamp/" README_FA.md
+      #    sed -i "s/performance_report\.html?v=[0-9]*/performance_report.html?v=$timestamp/" README_FA.md
           
-          sed -i "s/channel_stats_chart\.svg?v=[0-9]*/channel_stats_chart.svg?v=$timestamp/" README_CN.md
-          sed -i "s/performance_report\.html?v=[0-9]*/performance_report.html?v=$timestamp/" README_CN.md
+      #    sed -i "s/channel_stats_chart\.svg?v=[0-9]*/channel_stats_chart.svg?v=$timestamp/" README_CN.md
+      #    sed -i "s/performance_report\.html?v=[0-9]*/performance_report.html?v=$timestamp/" README_CN.md
           
-          sed -i "s/channel_stats_chart\.svg?v=[0-9]*/channel_stats_chart.svg?v=$timestamp/" README_RU.md
-          sed -i "s/performance_report\.html?v=[0-9]*/performance_report.html?v=$timestamp/" README_RU.md
+      #    sed -i "s/channel_stats_chart\.svg?v=[0-9]*/channel_stats_chart.svg?v=$timestamp/" README_RU.md
+      #    sed -i "s/performance_report\.html?v=[0-9]*/performance_report.html?v=$timestamp/" README_RU.md
       
       - name: Commit and push changes
         run: |
@@ -268,9 +268,6 @@ jobs:
           git add configs/channel_stats.json
           git add assets/
           git add README.md
-          git add README_FA.md
-          git add README_CN.md
-          git add README_RU.md
           
           if git diff --cached --quiet; then
             echo "No changes to commit"
